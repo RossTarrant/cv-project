@@ -1,0 +1,26 @@
+.sidebar{
+    background-color: gray;
+    text-align: center;
+}
+
+.sidebar-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: underline;
+    font-size: 20px;
+    gap: 24px;
+}
+
+.contact{
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-data{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    gap: 30px;
+    margin-left: 20px;
+}

@@ -1,5 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
+
 .content{
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
     width: 100%;
+    font-family: Urbanist;
+}
+
+.header{
+    grid-column: 2/5;
+}
+
+.sidebar{
+    grid-column: 2/3;
 }
