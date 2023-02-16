@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import Settings from "./components/Settings";
 import './styles/App.css';
 
 class App extends Component {
@@ -12,11 +13,21 @@ class App extends Component {
     }
   }
 
+  onClickEdit(){
+    this.setState({
+    edit: (!this.state.edit),
+    });
+  }
+
   render() {
     return (
       <div className="content">
-        <Header className="header"/>
-        <Sidebar className="sidebar"/>
+        <Settings className="settings"/>
+        <div className="cv">
+          <Header className="header"/>
+          <Sidebar className="sidebar"/>
+        </div>
+        
       </div>
       );
   }

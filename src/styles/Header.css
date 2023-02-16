@@ -1,20 +1,19 @@
 .header{
     font-family: Urbanist;
-    background-color: gray;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 75%;
-    height: 100px;
+    width: 100%;
     gap: 20px;
+    font-size: 24px;
 }
 
 .icon{
     cursor: pointer;
 }
 
-input{
+.header input{
     font-family: Urbanist;
-    font-size: 28px;
+    font-size: 48px;
     text-align: center;
 }

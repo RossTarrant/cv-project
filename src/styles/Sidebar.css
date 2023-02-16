@@ -1,5 +1,4 @@
 .sidebar{
-    background-color: gray;
     text-align: center;
 }
 
@@ -20,7 +19,18 @@
 .contact-data{
     display: flex;
     align-items: center;
-    font-size: 20px;
-    gap: 30px;
-    margin-left: 20px;
+    font-size: 18px;
+    gap: 45px;
+    margin: 10px;
+}
+
+.contact-data input{
+    font-family: Urbanist;
+    font-size: 18px;
+    text-align: center;
+}
+
+.contact-data textarea{
+    font-family: Urbanist;
+    font-size: 18px;
 }
