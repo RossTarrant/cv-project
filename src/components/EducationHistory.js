@@ -29,6 +29,20 @@ class EducationHistory extends Component{
                     <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
                     }
                 </div>
+                {this.state.edit? 
+                    <div className="edu-add">
+                        <h3>Add Education</h3>
+                        <label>Start Date:</label>
+                        <input type={'date'}/>
+                        <label>End Date:</label>
+                        <input type={'date'}/>
+                        <label>School Name:</label>
+                        <input />
+                        <label>Course Title:</label>
+                        <input />
+                        <button>Add</button>
+                    </div>
+                 : null}
             </div>
         )
     }
