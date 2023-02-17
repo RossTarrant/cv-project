@@ -11,7 +11,7 @@
 .cv{
     display: grid;
     grid-template-columns: 2fr 4fr;
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: 100px 2fr 2fr;
     gap: 0px;
     width: 75%;
     border: 2px solid black;
@@ -38,4 +38,5 @@
 
 .sidebar{
     grid-column: 1/2;
+    grid-row: 2/4;
 }

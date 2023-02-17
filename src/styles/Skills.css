@@ -1,0 +1,33 @@
+.skill{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 24px;
+}
+
+.skills-edit{
+    display: flex;
+    gap: 10px;
+}
+
+.skill-add{
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin-left: 30px;
+    gap: 10px;
+}
+
+.skill-add button{
+    grid-column: 2/3;
+    width: 50%;
+}
+
+.skill-add input, .skill-add label, .skill-add button{
+    font-family: Urbanist;
+}
+
+li{
+    list-style-type: none;
+}
