@@ -11,6 +11,7 @@ class Skills extends Component{
 
         this.state = {
             skillInput: '',
+            starsInput: 5,
             skills: [
                 {
                     id: uniqid(),
@@ -27,15 +28,20 @@ class Skills extends Component{
         };
     }
 
+    compareStars(a, b){
+        if ( a.stars < b.stars ){
+            return 1;
+          }
+          if ( a.stars > b.stars ){
+            return -1;
+          }
+          return 0;
+    }
+
     getSkills(){
-        const skills = this.state.skills.map( skill => (
-        <div className="skill">
-            {this.state.edit? 
-            <div className="skills-edit">
-                <FontAwesomeIcon className="icon" icon={faPenToSquare} size="sm" />
-                <FontAwesomeIcon className="icon" icon={faTrash} size="sm" onClick={ () => this.onClickDeleteSkill(skill.id)}/>
-            </div>
-            : null}
+        const sortedSkills = this.state.skills.sort(this.compareStars)
+        const skills = sortedSkills.map( skill => (
+        <div key={skill.id} className="skill">
             <li>{skill.skill}</li>
             <div className="stars">
                 {skill.stars > 0 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
@@ -44,20 +50,31 @@ class Skills extends Component{
                 {skill.stars > 3 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
                 {skill.stars > 4 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
             </div>
+            {this.state.edit? 
+            <div className="skills-edit">
+                <FontAwesomeIcon className="icon" icon={faPenToSquare} size="sm" />
+                <FontAwesomeIcon className="icon" icon={faTrash} size="sm" onClick={ () => this.onClickDeleteSkill(skill.id)}/>
+            </div>
+            : null}
         </div>
         ))
         return skills;
     }
 
     addSkill(){
-        const skill = {
-            id: uniqid(),
-            skill: this.state.skillInput,
-            stars: 3,
+        if(this.state.skillInput.length > 0){
+            const skill = {
+                id: uniqid(),
+                skill: this.state.skillInput,
+                stars: this.state.starsInput,
+            }
+            this.setState({
+                skills: this.state.skills.concat(skill),
+                edit: !(this.state.edit),
+                skillInput: '',
+                starsInput: 5,
+            })
         }
-        this.setState({
-            skills: this.state.skills.concat(skill)
-        })
     }
 
     onClickDeleteSkill(id){
@@ -89,12 +106,12 @@ class Skills extends Component{
                         <label>Skill Name:</label>
                         <input onChange={e  => this.setState({skillInput: e.target.value})}/>
                         <label>Stars:</label>
-                        <select name="cars" id="cars">
-                            <option>5</option>
-                            <option>4</option>
-                            <option>3</option>
-                            <option>2</option>
-                            <option>1</option>
+                        <select onChange={e  => this.setState({starsInput: Number(e.target.value)})}>
+                            <option value={5}>5</option>
+                            <option value={4}>4</option>
+                            <option value={3}>3</option>
+                            <option value={2}>2</option>
+                            <option value={1}>1</option>
                         </select>
                         <button onClick={this.addSkill.bind(this)}>Add</button>
                     </div>
