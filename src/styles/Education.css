@@ -1,0 +1,8 @@
+.edu-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: underline;
+    font-size: 20px;
+    gap: 24px;
+}

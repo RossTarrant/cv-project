@@ -12,6 +12,7 @@
     flex-direction: column;
     margin: 30px;
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .contact-data{
@@ -31,4 +32,8 @@
 .contact-data textarea{
     font-family: Urbanist;
     font-size: 18px;
+}
+
+.contact-data p{
+    margin: 0px;
 }

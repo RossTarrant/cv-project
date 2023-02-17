@@ -14,7 +14,7 @@ class Settings extends Component{
         return(
             <div className="settings">
                 <h1>CV Creator</h1>
-                <FontAwesomeIcon className="icon" icon={faGear} size="xl"/>
+                <button>Preview CV</button>
             </div>
         )
     }

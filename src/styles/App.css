@@ -11,12 +11,18 @@
 .cv{
     display: grid;
     grid-template-columns: 2fr 4fr;
-    grid-template-rows: 100px 2fr 2fr;
+    grid-template-rows: 100px 2fr;
     gap: 0px;
     width: 75%;
     border: 2px solid black;
-    border-radius: 32px;
-    background-color: gray;
+    border-radius: 0px;
+    background-color: whitesmoke;
+}
+
+.cv-main{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .settings{
@@ -32,6 +38,14 @@
     grid-column: 2/3;
 }
 
+.settings button{
+    font-family: Urbanist;
+    font-size: 32px;
+    background-color: gray;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
 .header{
     grid-column: 1/5;
 }
@@ -39,4 +53,8 @@
 .sidebar{
     grid-column: 1/2;
     grid-row: 2/4;
+}
+
+input, textarea, select, button{
+    border: 2px solid black;
 }

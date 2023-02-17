@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Settings from "./components/Settings";
+import CVMain from "./components/CVMain";
 import './styles/App.css';
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
         <div className="cv">
           <Header className="header"/>
           <Sidebar className="sidebar"/>
+          <CVMain />
         </div>
         
       </div>
