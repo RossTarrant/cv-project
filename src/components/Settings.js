@@ -14,7 +14,11 @@ class Settings extends Component{
         return(
             <div className="settings">
                 <h1>CV Creator</h1>
-                <button>Preview CV</button>
+                <div className="settings-buttons">
+                    <button>Autofill Detail</button>
+                    <button>Preview CV</button>
+                </div>
+                
             </div>
         )
     }

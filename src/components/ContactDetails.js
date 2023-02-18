@@ -31,22 +31,14 @@ class ContactDetails extends Component{
                     <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
                 </div>
                 <div className="contact">
-                    <div className="contact-data">
                         <FontAwesomeIcon className="icon" icon={faPhone} size="xl"/>
                         <p>{this.state.phone}</p>
-                    </div>
-                    <div className="contact-data">
                         <FontAwesomeIcon className="icon" icon={faEnvelope} size="xl"/>
                         <p>{this.state.email}</p>
-                    </div>
-                    <div className="contact-data">
                         <FontAwesomeIcon className="icon" icon={faLocationDot} size="2xl"/>
                         <p>{this.state.address}</p>
-                    </div>
-                    <div className="contact-data">
                         <FontAwesomeIcon className="icon" icon={faLink} size="xl"/>
                         <p>{this.state.link}</p>
-                    </div>
                 </div>
             </div>
             :
@@ -56,22 +48,14 @@ class ContactDetails extends Component{
                     <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
                 </div>
                 <div className="contact">
-                    <div className="contact-data">
                         <FontAwesomeIcon className="icon" icon={faPhone} size="xl"/>
                         <input value={this.state.phone} onChange={e  => this.setState({phone: e.target.value})}/>
-                    </div>
-                    <div className="contact-data">
                         <FontAwesomeIcon className="icon" icon={faEnvelope} size="xl"/>
                         <input value={this.state.email} onChange={e  => this.setState({email: e.target.value})}/>
-                    </div>
-                    <div className="contact-data">
                         <FontAwesomeIcon className="icon" icon={faLocationDot} size="2xl"/>
                         <textarea value={this.state.address} onChange={e  => this.setState({address: e.target.value})}/>
-                    </div>
-                    <div className="contact-data">
                         <FontAwesomeIcon className="icon" icon={faLink} size="xl"/>
                         <input value={this.state.link} onChange={e  => this.setState({link: e.target.value})}/>
-                    </div>
                 </div>
             </div>
         )
