@@ -41,7 +41,7 @@ class Skills extends Component{
     getSkills(){
         const sortedSkills = this.state.skills.sort(this.compareStars)
         const skills = sortedSkills.map( skill => (
-        <div key={skill.id} className="skill">
+        <div key={skill.id} className={this.props.preview? "skill-preview" : "skill"}>
             <li>{skill.skill}</li>
             <div className="stars">
                 {skill.stars > 0 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}

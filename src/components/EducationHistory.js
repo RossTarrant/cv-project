@@ -43,7 +43,7 @@ class EducationHistory extends Component{
     getEducation(){
         // Possibly sort education based upon date
         const educationHistory = this.state.education.map(edu => 
-            <div key={edu.id} className="edu-card">
+            <div key={edu.id} className={this.props.preview? "edu-card-preview" : "edu-card"}>
                 <div className="edu-details">
                     <div className="edu-school">{edu.school}</div>
                     <div className="edu-dates">{edu.startDate} - {edu.endDate}</div>

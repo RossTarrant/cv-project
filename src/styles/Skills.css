@@ -1,10 +1,18 @@
-.skill{
+.skill, .skill-preview{
     display: grid;
     align-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
     text-align: left;
-    font-size: 16px;
     margin: 10px;
+}
+
+.skill{
+    grid-template-columns: 1fr 1fr 1fr;
+    font-size: 16px;
+}
+
+.skill-preview{
+    grid-template-columns: 1fr 1fr;
+    font-size: 24px;
 }
 
 .skills-edit{

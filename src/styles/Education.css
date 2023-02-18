@@ -13,11 +13,18 @@
     gap: 20px;
 }
 
-.edu-card{
+.edu-card, .edu-card-preview{
     display: grid;
-    grid-template-columns: 4fr 1fr;
     align-items: center;
     margin-left: 20px;
+}
+
+.edu-card{
+    grid-template-columns: 4fr 1fr;
+}
+
+.edu-card-preview{
+    grid-template-columns: 1fr;
 }
 
 .edu-details{

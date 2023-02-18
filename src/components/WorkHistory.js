@@ -60,7 +60,7 @@ class WorkHistory extends Component{
     getWork(){
         // Possibly sort work based upon date
         const workHistory = this.state.work.map(work => 
-            <div key={work.id} className="work-card">
+            <div key={work.id} className={this.props.preview? "work-card-preview" : "work-card"}>
                 <div className="work-details">
                     <div className="work-title">{work.role}</div>
                     <div className="work-subtitle">

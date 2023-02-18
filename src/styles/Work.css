@@ -26,12 +26,20 @@
     gap: 20px;
 }
 
-.work-card{
+.work-card, .work-card-preview{
     display: grid;
-    grid-template-columns: 4fr 1fr;
     align-items: center;
     margin-left: 20px;
 }
+
+.work-card{
+    grid-template-columns: 4fr 1fr;
+}
+
+.work-card-preview{
+    grid-template-columns: 1fr;
+}
+
 
 .work-details{
     display: grid;
