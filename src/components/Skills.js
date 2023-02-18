@@ -6,8 +6,8 @@ import uniqid from "uniqid";
 
 class Skills extends Component{
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
 
         this.state = {
             skillInput: '',
@@ -51,8 +51,10 @@ class Skills extends Component{
                 {skill.stars > 4 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
             </div>
             <div className="skills-edit">
-                <FontAwesomeIcon className="icon" icon={faPenToSquare} size="sm" />
-                <FontAwesomeIcon className="icon" icon={faTrash} size="sm" onClick={ () => this.onClickDeleteSkill(skill.id)}/>
+                {this.props.preview? null 
+                : <FontAwesomeIcon className="icon" icon={faPenToSquare} size="sm" />}
+                {this.props.preview? null 
+                : <FontAwesomeIcon className="icon" icon={faTrash} size="sm" onClick={ () => this.onClickDeleteSkill(skill.id)}/>}
             </div>
         </div>
         ))
@@ -88,16 +90,26 @@ class Skills extends Component{
         });
     }
 
+    getIcon(){
+        if(!this.props.preview){
+            if(this.state.edit){
+                return <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
+            }
+            else{
+                return <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
+            }
+        }
+        else{
+            return null
+        }
+    }
+
     render(){
         return(
             <div className="sidebar">
                 <div className="sidebar-header">
                     <h2>Skills</h2>
-                    {this.state.edit? 
-                    <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
-                    :
-                    <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
-                    }
+                    {this.getIcon()}
                 </div>
                 {this.state.edit? 
                     <div className="skill-add-container">

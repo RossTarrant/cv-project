@@ -12,8 +12,9 @@ class Header extends Component{
             name: 'Your name...',
             role: 'Enter your job role...',
             edit: false,
+            preview: props.preview,
+            autofill: props.autofill,
         };
-
     }
 
     onClickEdit(){
@@ -49,7 +50,8 @@ class Header extends Component{
                 <div className="header-name">{this.state.name}</div>
                 <div className="header-role">{this.state.role}</div>
             </div>
-            <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
+            {this.props.preview? null 
+            : <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>}
         </div>;
     }
 

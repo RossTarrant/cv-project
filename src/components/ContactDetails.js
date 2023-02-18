@@ -4,8 +4,8 @@ import { faPhone, faEnvelope, faLocationDot, faLink, faPenToSquare, faSquareChec
 
 class ContactDetails extends Component{
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
 
         this.state = {
             phone: 'Enter your phone number...',
@@ -28,7 +28,9 @@ class ContactDetails extends Component{
             <div className="sidebar">
                 <div className="sidebar-header">
                     <h2>Contact Details</h2>
+                    {!this.props.preview? 
                     <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
+                    : null}
                 </div>
                 <div className="contact">
                         <FontAwesomeIcon className="icon" icon={faPhone} size="xl"/>
@@ -45,7 +47,9 @@ class ContactDetails extends Component{
             <div className="sidebar">
                 <div className="sidebar-header">
                     <h2>Contact Details</h2>
+                    {!this.props.preview? 
                     <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
+                    : null}
                 </div>
                 <div className="contact">
                         <FontAwesomeIcon className="icon" icon={faPhone} size="xl"/>

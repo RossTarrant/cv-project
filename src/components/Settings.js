@@ -34,7 +34,6 @@ class Settings extends Component{
                     <button onClick={this.onAutofillClick.bind(this)}>{this.state.autofill? 'Reset Details' : 'Autofill Details'}</button>
                     <button onClick={this.onPreviewClick.bind(this)}>{this.state.preview? 'Edit CV' : 'Preview CV'}</button>
                 </div>
-                
             </div>
         )
     }

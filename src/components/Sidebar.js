@@ -5,11 +5,15 @@ import Skills from "./Skills";
 
 class Sidebar extends Component{
 
+    constructor(props){
+        super(props);
+    }
+
     render(){
         return(
             <div className="sidebar">
-                <ContactDetails />
-                <Skills />
+                <ContactDetails autofill={this.props.autofill} preview={this.props.preview}/>
+                <Skills autofill={this.props.autofill} preview={this.props.preview}/>
             </div>
         )
     }

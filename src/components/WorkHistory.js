@@ -70,8 +70,8 @@ class WorkHistory extends Component{
                     <div className="work-description">{work.description}</div>
                 </div>
                 <div className="work-edit">
-                    <FontAwesomeIcon className="icon" icon={faPenToSquare} size="lg" />
-                    <FontAwesomeIcon className="icon" icon={faTrash} size="lg" onClick={ () => this.onClickDeleteWork(work.id)}/>
+                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={faPenToSquare} size="lg" /> : null}
+                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={faTrash} size="lg" onClick={ () => this.onClickDeleteWork(work.id)}/> : null}
                 </div>
             </div>
             )
@@ -100,16 +100,26 @@ class WorkHistory extends Component{
         }
     }
 
+    getIcon(){
+        if(!this.props.preview){
+            if(this.state.edit){
+                return <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
+            }
+            else{
+                return <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
+            }
+        }
+        else{
+            return null
+        }
+    }
+
     render(){
         return(
             <div className="work-history">
                 <div className="work-header">
                 <h2>Work History</h2>
-                    {this.state.edit? 
-                    <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
-                    :
-                    <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
-                    }
+                    {this.getIcon()}
                 </div>
                 {this.state.edit? 
                     <div className="work-add-container">

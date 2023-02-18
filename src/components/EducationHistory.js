@@ -6,8 +6,8 @@ import { faPenToSquare, faSquareCheck, faTrash} from '@fortawesome/free-solid-sv
 
 class EducationHistory extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             edit: false,
             education: [
@@ -50,8 +50,8 @@ class EducationHistory extends Component{
                     <div className="edu-course">{edu.course}</div>
                 </div>
                 <div className="edu-edit">
-                    <FontAwesomeIcon className="icon" icon={faPenToSquare} size="lg" />
-                    <FontAwesomeIcon className="icon" icon={faTrash} size="lg" onClick={ () => this.onClickDeleteEducation(edu.id)}/>
+                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={faPenToSquare} size="lg" /> : null}
+                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={faTrash} size="lg" onClick={ () => this.onClickDeleteEducation(edu.id)}/> : null}
                 </div>
             </div>
             )
@@ -91,16 +91,26 @@ class EducationHistory extends Component{
         });
     }
 
+    getIcon(){
+        if(!this.props.preview){
+            if(this.state.edit){
+                return <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
+            }
+            else{
+                return <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
+            }
+        }
+        else{
+            return null
+        }
+    }
+
     render(){
         return(
             <div className="edu-history">
                 <div className="edu-header">
-                <h2>Education History</h2>
-                    {this.state.edit? 
-                    <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
-                    :
-                    <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
-                    }
+                    <h2>Education History</h2>
+                    {this.getIcon()}
                 </div>
                 {this.state.edit? 
                     <div className="edu-add-container">
