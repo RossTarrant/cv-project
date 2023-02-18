@@ -1,11 +1,13 @@
 .header{
     font-family: Urbanist;
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: center;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 24px;
     width: 100%;
-    gap: 20px;
     font-size: 24px;
+    background-color: rgb(252, 207, 128);
+    border-bottom: solid 4px black;
 }
 
 .icon{
@@ -14,6 +16,37 @@
 
 .header input{
     font-family: Urbanist;
-    font-size: 48px;
+    font-size: 32px;
     text-align: center;
 }
+
+.header-name-role{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header-name{
+    text-align: center;
+    font-size: 54px;
+}
+
+.header-role{
+    text-align: center;
+    font-size: 32px;
+}
+
+.header-photo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dot {
+    height: 170px;
+    width: 170px;
+    background-color: #bbb;
+    border: 3px solid black;
+    border-radius: 50%;
+    display: inline-block;
+  }

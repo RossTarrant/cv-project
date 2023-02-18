@@ -10,6 +10,7 @@ class Header extends Component{
 
         this.state = {
             name: 'Your name...',
+            role: 'Enter your job role...',
             edit: false,
         };
 
@@ -30,12 +31,24 @@ class Header extends Component{
     render() {
         return this.state.edit ? 
         <div className="header">
-            <input value={this.state.name} onChange={e  => this.setState({name: e.target.value})}/>
+            <div className="header-photo">
+                <img className="dot" alt="error" src="https://www.lse.ac.uk/government/Assets/Images/People/Academic/dan-berliner-200x200.jpg"></img>
+            </div>
+            <div className="header-name-role">
+                <input value={this.state.name} onChange={e  => this.setState({name: e.target.value})}/>
+                <input value={this.state.role} onChange={e  => this.setState({role: e.target.value})}/>
+            </div>
             <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickSubmit.bind(this)}/>
         </div> 
         : 
         <div className="header">
-            <h1>{this.state.name}</h1>
+            <div className="header-photo">
+                <img className="dot" alt="error" src="https://www.lse.ac.uk/government/Assets/Images/People/Academic/dan-berliner-200x200.jpg"></img>
+            </div>
+            <div>
+                <div className="header-name">{this.state.name}</div>
+                <div className="header-role">{this.state.role}</div>
+            </div>
             <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
         </div>;
     }
