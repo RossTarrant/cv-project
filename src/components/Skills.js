@@ -50,12 +50,10 @@ class Skills extends Component{
                 {skill.stars > 3 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
                 {skill.stars > 4 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
             </div>
-            {this.state.edit? 
             <div className="skills-edit">
                 <FontAwesomeIcon className="icon" icon={faPenToSquare} size="sm" />
                 <FontAwesomeIcon className="icon" icon={faTrash} size="sm" onClick={ () => this.onClickDeleteSkill(skill.id)}/>
             </div>
-            : null}
         </div>
         ))
         return skills;
@@ -102,23 +100,25 @@ class Skills extends Component{
                     }
                 </div>
                 {this.state.edit? 
-                    <div className="skill-add">
-                        <label>Skill Name:</label>
-                        <input onChange={e  => this.setState({skillInput: e.target.value})}/>
-                        <label>Stars:</label>
-                        <select onChange={e  => this.setState({starsInput: Number(e.target.value)})}>
-                            <option value={5}>5</option>
-                            <option value={4}>4</option>
-                            <option value={3}>3</option>
-                            <option value={2}>2</option>
-                            <option value={1}>1</option>
-                        </select>
-                        <button onClick={this.addSkill.bind(this)}>Add</button>
+                    <div className="skill-add-container">
+                        <div className="skill-add">
+                            <label>Skill Name:</label>
+                            <input onChange={e  => this.setState({skillInput: e.target.value})}/>
+                            <label>Stars:</label>
+                            <select onChange={e  => this.setState({starsInput: Number(e.target.value)})}>
+                                <option value={5}>5</option>
+                                <option value={4}>4</option>
+                                <option value={3}>3</option>
+                                <option value={2}>2</option>
+                                <option value={1}>1</option>
+                            </select>
+                            <button onClick={this.addSkill.bind(this)}>Add</button>
+                        </div>
                     </div>
                  : null}
-                <ul>
+                <div>
                     {this.getSkills()}
-                </ul>
+                </div>
             </div>
         )
     }

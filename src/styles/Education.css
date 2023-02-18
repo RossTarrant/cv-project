@@ -1,7 +1,5 @@
 .edu-history{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    
 }
 
 .edu-header{
@@ -14,13 +12,56 @@
     width: 100%;
 }
 
+.edu-cards{
+    display: grid;
+    gap: 20px;
+}
+
+.edu-card{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.edu-details{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.edu-school{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.edu-course{
+    font-size: 18px;
+}
+
+.edu-dates{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.edu-edit{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.edu-add-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
 .edu-add{
     width: 50%;
     display: grid;
     grid-template-columns: 1fr 3fr;
     gap: 10px;
     background-color: white;
-    margin: 10px;
     padding: 15px;
     border: 2px solid black;
     border-radius: 6px;
