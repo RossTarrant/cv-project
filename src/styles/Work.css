@@ -1,3 +1,7 @@
+.work-history{
+    margin-bottom: 30px;
+}
+
 .work-header{
     display: flex;
     align-items: center;
@@ -5,4 +9,83 @@
     text-decoration: underline;
     font-size: 20px;
     gap: 24px;
+}
+
+.work-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: underline;
+    font-size: 20px;
+    gap: 12px;
+    width: 100%;
+}
+
+.work-cards{
+    display: grid;
+    gap: 20px;
+}
+
+.work-card{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.work-details{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    align-items: center;
+}
+
+.work-title{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.work-dates{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.work-subtitle{
+    grid-row: 1/3;
+    grid-column: 2/3;
+    text-align: center;
+    padding: 15px;
+}
+
+.work-edit{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.work-add-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.work-add{
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 10px;
+    background-color: white;
+    padding: 15px;
+    border: 2px solid black;
+    border-radius: 6px;
+}
+
+.work-add h3{
+    grid-column: 1/3;
+    text-align: center;
+    margin: 0px;
+}
+
+.work input{
+    font-family: Urbanist;
 }

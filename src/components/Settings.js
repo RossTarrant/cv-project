@@ -1,3 +1,4 @@
+import { faL } from "@fortawesome/free-solid-svg-icons";
 import React, { Component } from "react";
 import '../styles/Header.css'
 
@@ -8,6 +9,7 @@ class Settings extends Component{
 
         this.state = {
             preview: false,
+            autofill: false,
         }
 
     }
@@ -17,13 +19,19 @@ class Settings extends Component{
             preview: !this.state.preview,
         })
     }
+
+    onAutofillClick(){
+        this.setState({
+            autofill: !this.state.autofill,
+        })
+    }
     
     render() {
         return(
             <div className="settings">
                 <h1>CV Creator</h1>
                 <div className="settings-buttons">
-                    <button>Autofill Detail</button>
+                    <button onClick={this.onAutofillClick.bind(this)}>{this.state.autofill? 'Reset Details' : 'Autofill Details'}</button>
                     <button onClick={this.onPreviewClick.bind(this)}>{this.state.preview? 'Edit CV' : 'Preview CV'}</button>
                 </div>
                 

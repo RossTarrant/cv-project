@@ -16,24 +16,24 @@ class WorkHistory extends Component{
                     startDate: '2022',
                     endDate: 'Present',
                     workplace: 'The West Bridgford School',
-                    role: 'Computing',
-                    description: 'A description',
+                    role: 'Teacher of Computing',
+                    description: 'This is an example of a potential job description that may be placed in this exact location. There are lots of different details I could write about but I will ignore them and just leave it around about here...',
                 },
                 {
                     id: uniqid(),
                     startDate: '2022',
                     endDate: 'Present',
-                    workplace: 'The West Bridgford School',
-                    role: 'Computing',
-                    description: 'A description',
+                    workplace: 'George Spencer Academy',
+                    role: 'Teacher of Computing',
+                    description: 'This is an example of a potential job description that may be placed in this exact location. There are lots of different details I could write about but I will ignore them and just leave it around about here...',
                 },
                 {
                     id: uniqid(),
                     startDate: '2022',
                     endDate: 'Present',
-                    workplace: 'The West Bridgford School',
-                    role: 'Computing',
-                    description: 'A description',
+                    workplace: 'Tudor Grange Academy',
+                    role: 'Teacher (Maternity Cover)',
+                    description: 'This is an example of a potential job description that may be placed in this exact location. There are lots of different details I could write about but I will ignore them and just leave it around about here...',
                 }
             ],
             startDateInput: null,
@@ -60,12 +60,13 @@ class WorkHistory extends Component{
     getWork(){
         // Possibly sort work based upon date
         const workHistory = this.state.work.map(work => 
-            <div key={work.id} className="edu-card">
+            <div key={work.id} className="work-card">
                 <div className="work-details">
-                    <div className="work-school">{work.school}</div>
-                    <div className="work-dates">{work.startDate} - {work.endDate}</div>
-                    <div className="work-workplace">{work.workplace}</div>
-                    <div className="work-role">{work.role}</div>
+                    <div className="work-title">{work.role}</div>
+                    <div className="work-subtitle">
+                        <div className="work-workplace">{work.workplace}</div>
+                        <div className="work-dates">{work.startDate} - {work.endDate}</div>
+                    </div>
                     <div className="work-description">{work.description}</div>
                 </div>
                 <div className="work-edit">
@@ -85,6 +86,7 @@ class WorkHistory extends Component{
                 endDate: this.state.endDateInput,
                 workplace: this.state.workplaceInput,
                 role: this.state.roleInput,
+                description: this.state.descriptionInput,
             }
             this.setState({
                 work: this.state.work.concat(newWork),
@@ -117,10 +119,12 @@ class WorkHistory extends Component{
                             <input onChange={e => this.setState({startDateInput: e.target.value})}/>
                             <label>End Year:</label>
                             <input onChange={e => this.setState({endDateInput: e.target.value})}/>
-                            <label>School Name:</label>
+                            <label>Place of Work:</label>
                             <input onChange={e => this.setState({workplaceInput: e.target.value})}/>
-                            <label>Course Title:</label>
+                            <label>Role:</label>
                             <input onChange={e => this.setState({roleInput: e.target.value})}/>
+                            <label>Description (250 chars):</label>
+                            <textarea maxLength={250} onChange={e => this.setState({descriptionInput: e.target.value})}/>
                             <button onClick={this.addWork.bind(this)}>Add</button>
                         </div>
                     </div>
