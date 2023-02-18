@@ -67,7 +67,6 @@ class EducationHistory extends Component{
                 school: this.state.schoolInput,
                 course: this.state.courseInput,
             }
-            console.log(newEducation)
             this.setState({
                 education: this.state.education.concat(newEducation),
                 edit: !(this.state.edit),

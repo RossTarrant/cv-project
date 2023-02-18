@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import '../styles/Header.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGear } from '@fortawesome/free-solid-svg-icons'
 
 class Settings extends Component{
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            preview: false,
+        }
+
+    }
+
+    onPreviewClick(){
+        this.setState({
+            preview: !this.state.preview,
+        })
     }
     
     render() {
@@ -16,7 +24,7 @@ class Settings extends Component{
                 <h1>CV Creator</h1>
                 <div className="settings-buttons">
                     <button>Autofill Detail</button>
-                    <button>Preview CV</button>
+                    <button onClick={this.onPreviewClick.bind(this)}>{this.state.preview? 'Edit CV' : 'Preview CV'}</button>
                 </div>
                 
             </div>
