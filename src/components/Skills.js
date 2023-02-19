@@ -77,7 +77,7 @@ class Skills extends Component{
         const sortedSkills = this.state.skills.sort(this.compareStars)
         const skills = sortedSkills.map( skill => (
         <div key={skill.id} className={this.props.preview? "skill-preview" : "skill"}>
-            {skill.edit? <input value={skill.skill} onChange={e  => this.setState({skillInput: e.target.value})}/> : <li>{skill.skill}</li>}
+            {skill.edit? <input value={this.state.skillInput} onChange={e  => this.setState({skillInput: e.target.value})}/> : <li>{skill.skill}</li>}
             {skill.edit? 
                 <select defaultValue={skill.stars} onChange={e  => this.setState({starsInput: Number(e.target.value)})}>
                     <option value={5}>5</option>
@@ -124,12 +124,18 @@ class Skills extends Component{
 
     onClickEditSkill(id){
         let index = 0;
+        let updatedSkills = [...this.state.skills];
         for(let i = 0; i < this.state.skills.length; i++){
             if(this.state.skills[i].id===id){
                 index = i;
             }
+            else if(this.state.skills[i].edit===true){
+                console.log(this.state.skills)
+                let currentSkill = {...updatedSkills[i]};
+                currentSkill.edit = false;
+                updatedSkills[i] = currentSkill;
+            }
         }
-        let updatedSkills = [...this.state.skills];
         let skill = {...updatedSkills[index]};
         this.setState({
             skillInput: skill.skill,
