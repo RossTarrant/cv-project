@@ -30,6 +30,21 @@
 .edu-details{
     display: grid;
     grid-template-columns: 3fr 1fr;
+    gap: 5px;
+}
+
+.edu-details input{
+    font-family: Urbanist;
+}
+
+.edu-edit-details{
+    display: flex;
+    gap: 10px;
+}
+
+.edu-edit-details input{
+    text-align: center;
+    width: 100px;
 }
 
 .edu-school{

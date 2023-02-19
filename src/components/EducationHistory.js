@@ -29,6 +29,7 @@ class EducationHistory extends Component{
                             endDate: 'Present',
                             school: 'The Odin Project',
                             course: 'Web Development',
+                            edit: false,
                         },
                         {
                             id: uniqid(),
@@ -36,6 +37,7 @@ class EducationHistory extends Component{
                             endDate: '2019',
                             school: 'University of Golden Sunset',
                             course: 'Computer Science (BSc)',
+                            edit: false,
                         },
                         {
                             id: uniqid(),
@@ -43,6 +45,7 @@ class EducationHistory extends Component{
                             endDate: '2016',
                             school: 'Green Grass Sixth Form',
                             course: 'English, Maths, Science (A-Levels)',
+                            edit: false,
                         },
                         {
                             id: uniqid(),
@@ -50,6 +53,7 @@ class EducationHistory extends Component{
                             endDate: '2014',
                             school: 'Blue Sky Secondary School',
                             course: 'English, Maths, Science, French (GCSEs)',
+                            edit: false,
                         }
                     ]
                 })
@@ -66,13 +70,25 @@ class EducationHistory extends Component{
         // Possibly sort education based upon date
         const educationHistory = this.state.education.map(edu => 
             <div key={edu.id} className={this.props.preview? "edu-card-preview" : "edu-card"}>
+                {edu.edit? 
+                <div className="edu-details">
+                    <input value={this.state.schoolInput} onChange={e  => this.setState({schoolInput: e.target.value})} className="edu-school"/>
+                    <div className="edu-edit-details">
+                        <input value={this.state.startDateInput} onChange={e  => this.setState({startDateInput: e.target.value})} className="edu-course"/>
+                        <input value={this.state.endDateInput} onChange={e  => this.setState({endDateInput: e.target.value})} className="edu-course"/>
+                    </div>
+                    <input value={this.state.courseInput} onChange={e  => this.setState({courseInput: e.target.value})} className="edu-course"/>
+                </div>
+                :
                 <div className="edu-details">
                     <div className="edu-school">{edu.school}</div>
                     <div className="edu-dates">{edu.startDate} - {edu.endDate}</div>
                     <div className="edu-course">{edu.course}</div>
                 </div>
+                }
+                
                 <div className="edu-edit">
-                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={faPenToSquare} size="lg" /> : null}
+                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={edu.edit? faSquareCheck : faPenToSquare} size="lg" onClick={ () => this.onClickEditEducation(edu.id)}/> : null}
                     {!this.props.preview? <FontAwesomeIcon className="icon" icon={faTrash} size="lg" onClick={ () => this.onClickDeleteEducation(edu.id)}/> : null}
                 </div>
             </div>
@@ -106,6 +122,7 @@ class EducationHistory extends Component{
                 endDate: this.state.endDateInput,
                 school: this.state.schoolInput,
                 course: this.state.courseInput,
+                edit: false,
             }
             this.setState({
                 education: this.state.education.concat(newEducation),
@@ -129,6 +146,37 @@ class EducationHistory extends Component{
         this.setState({
             education : filteredSkills,
         });
+    }
+
+    onClickEditEducation(id){
+        let index = 0;
+        let updatedEducation = [...this.state.education];
+        for(let i = 0; i < this.state.education.length; i++){
+            if(this.state.education[i].id===id){
+                index = i;
+            }
+            else if(this.state.education[i].edit===true){
+                let currentEducation = {...updatedEducation[i]};
+                currentEducation.edit = false;
+                updatedEducation[i] = currentEducation;
+            }
+        }
+        let education = {...updatedEducation[index]};
+        this.setState({
+            startDateInput: education.startDate,
+            endDateInput: education.endDate,
+            schoolInput: education.school,
+            courseInput: education.course,
+        })
+        if(education.edit){
+            education.startDate = this.state.startDateInput;
+            education.endDate = this.state.endDateInput;
+            education.school = this.state.schoolInput;
+            education.course = this.state.courseInput;
+        }
+        education.edit = !education.edit;
+        updatedEducation[index] = education;
+        this.setState({education: updatedEducation});
     }
 
     getIcon(){

@@ -130,7 +130,6 @@ class Skills extends Component{
                 index = i;
             }
             else if(this.state.skills[i].edit===true){
-                console.log(this.state.skills)
                 let currentSkill = {...updatedSkills[i]};
                 currentSkill.edit = false;
                 updatedSkills[i] = currentSkill;
