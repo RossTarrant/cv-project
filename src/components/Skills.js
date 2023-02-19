@@ -26,26 +26,31 @@ class Skills extends Component{
                         id: uniqid(),
                         skill:"HTML",
                         stars: 3,
+                        edit: false,
                     }, 
                     {
                         id: uniqid(),
                         skill: "CSS",
                         stars: 3,
+                        edit: false,
                     },
                     {
                         id: uniqid(),
                         skill: "React.js",
                         stars: 5,
+                        edit: false,
                     },
                     {
                         id: uniqid(),
                         skill: "Javascript",
                         stars: 5,
+                        edit: false,
                     },
                     {
                         id: uniqid(),
                         skill: "Python",
                         stars: 2,
+                        edit: false,
                     }
                 ]
                 })
@@ -72,17 +77,27 @@ class Skills extends Component{
         const sortedSkills = this.state.skills.sort(this.compareStars)
         const skills = sortedSkills.map( skill => (
         <div key={skill.id} className={this.props.preview? "skill-preview" : "skill"}>
-            <li>{skill.skill}</li>
-            <div className="stars">
-                {skill.stars > 0 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
-                {skill.stars > 1 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
-                {skill.stars > 2 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
-                {skill.stars > 3 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
-                {skill.stars > 4 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
-            </div>
+            {skill.edit? <input value={skill.skill} onChange={e  => this.setState({skillInput: e.target.value})}/> : <li>{skill.skill}</li>}
+            {skill.edit? 
+                <select defaultValue={skill.stars} onChange={e  => this.setState({starsInput: Number(e.target.value)})}>
+                    <option value={5}>5</option>
+                    <option value={4}>4</option>
+                    <option value={3}>3</option>
+                    <option value={2}>2</option>
+                    <option value={1}>1</option>
+                </select>
+            : 
+                <div className="stars">
+                    {skill.stars > 0 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
+                    {skill.stars > 1 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
+                    {skill.stars > 2 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
+                    {skill.stars > 3 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
+                    {skill.stars > 4 ? <FontAwesomeIcon icon={faStar} size="sm" /> : null}
+                </div>
+            }
             <div className="skills-edit">
                 {this.props.preview? null 
-                : <FontAwesomeIcon className="icon" icon={faPenToSquare} size="sm" />}
+                : <FontAwesomeIcon className="icon" icon={skill.edit? faSquareCheck: faPenToSquare} size="sm" onClick={ () => this.onClickEditSkill(skill.id)}/>}
                 {this.props.preview? null 
                 : <FontAwesomeIcon className="icon" icon={faTrash} size="sm" onClick={ () => this.onClickDeleteSkill(skill.id)}/>}
             </div>
@@ -105,6 +120,28 @@ class Skills extends Component{
                 starsInput: 5,
             })
         }
+    }
+
+    onClickEditSkill(id){
+        let index = 0;
+        for(let i = 0; i < this.state.skills.length; i++){
+            if(this.state.skills[i].id===id){
+                index = i;
+            }
+        }
+        let updatedSkills = [...this.state.skills];
+        let skill = {...updatedSkills[index]};
+        this.setState({
+            skillInput: skill.skill,
+            starsInput: skill.stars
+        })
+        if(skill.edit){
+            skill.skill = this.state.skillInput
+            skill.stars = this.state.starsInput;
+        }
+        skill.edit = !skill.edit;
+        updatedSkills[index] = skill;
+        this.setState({skills: updatedSkills});
     }
 
     onClickDeleteSkill(id){
