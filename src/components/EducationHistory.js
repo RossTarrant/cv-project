@@ -10,34 +10,56 @@ class EducationHistory extends Component{
         super(props);
         this.state = {
             edit: false,
-            education: [
-                {
-                    id: uniqid(),
-                    startDate: '2022',
-                    endDate: 'Present',
-                    school: 'The West Bridgford School',
-                    course: 'Computing',
-                },
-                {
-                    id: uniqid(),
-                    startDate: '2018',
-                    endDate: '2022',
-                    school: 'George Spencer',
-                    course: 'Computing',
-                },
-                {
-                    id: uniqid(),
-                    startDate: '2014',
-                    endDate: '2018',
-                    school: 'Tudor Grange Academy Solihull',
-                    course: 'Computing',
-                }
-            ],
+            education: [],
             startDateInput: null,
             endDateInput: null,
             schoolInput: null,
             courseInput: null,
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.autofill !== this.props.autofill) {
+               if(this.props.autofill){
+                this.setState({
+                    education: [
+                        {
+                            id: uniqid(),
+                            startDate: '2022',
+                            endDate: 'Present',
+                            school: 'The Odin Project',
+                            course: 'Web Development',
+                        },
+                        {
+                            id: uniqid(),
+                            startDate: '2016',
+                            endDate: '2019',
+                            school: 'University of Golden Sunset',
+                            course: 'Computer Science (BSc)',
+                        },
+                        {
+                            id: uniqid(),
+                            startDate: '2014',
+                            endDate: '2016',
+                            school: 'Green Grass Sixth Form',
+                            course: 'English, Maths, Science (A-Levels)',
+                        },
+                        {
+                            id: uniqid(),
+                            startDate: '2012',
+                            endDate: '2014',
+                            school: 'Blue Sky Secondary School',
+                            course: 'English, Maths, Science, French (GCSEs)',
+                        }
+                    ]
+                })
+               }
+               else{
+                this.setState({
+                    education: []
+                })
+               }
+        }
     }
 
     getEducation(){
@@ -58,8 +80,26 @@ class EducationHistory extends Component{
         return educationHistory;
     }
 
+    checkFilledForm(){
+        if(this.state.startDateInput===null){
+            return false
+        }
+        else if(this.state.endDateInput===null){
+            return false
+        }
+        else if(this.state.schoolInput===null){
+            return false
+        }
+        else if(this.state.courseInput===null){
+            return false
+        }
+        else{
+            return true
+        }
+    }
+
     addEducation(){
-        if(1===1){
+        if(this.checkFilledForm()){
             const newEducation = {
                 id: uniqid(),
                 startDate: this.state.startDateInput,
@@ -105,14 +145,10 @@ class EducationHistory extends Component{
         }
     }
 
-    render(){
-        return(
-            <div className="edu-history">
-                <div className="edu-header">
-                    <h2>Education History</h2>
-                    {this.getIcon()}
-                </div>
-                {this.state.edit? 
+    getInputForm(){
+        if(!this.props.preview){
+            if(this.state.edit){
+                return(
                     <div className="edu-add-container">
                         <div className="edu-add">
                             <h3>Add Education</h3>
@@ -127,7 +163,19 @@ class EducationHistory extends Component{
                             <button onClick={this.addEducation.bind(this)}>Add</button>
                         </div>
                     </div>
-                 : null}
+                )
+            }
+        }
+    }
+
+    render(){
+        return(
+            <div className="edu-history">
+                <div className="edu-header">
+                    <h2>Education History</h2>
+                    {this.getIcon()}
+                </div>
+                {this.getInputForm()}
                  <div className="edu-cards">
                     {this.getEducation()}
                  </div>

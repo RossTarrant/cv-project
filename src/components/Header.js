@@ -17,6 +17,23 @@ class Header extends Component{
         };
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.autofill !== this.props.autofill) {
+               if(this.props.autofill){
+                this.setState({
+                    name: 'Jonny Developer',
+                    role: 'Junior Web Developer',
+                })
+               }
+               else{
+                this.setState({
+                    name: 'Your name...',
+                    role: 'Enter your job role...',
+                })
+               }
+        }
+    }
+
     onClickEdit(){
         this.setState({
             edit: (!this.state.edit),
@@ -30,23 +47,13 @@ class Header extends Component{
     }
 
     getHeaderNameRole(){
-        if(!this.props.preview){
-            if(this.state.edit){
-                return(
-                    <div className="header-name-role">
-                        <input value={this.state.name} onChange={e  => this.setState({name: e.target.value})}/>
-                        <input value={this.state.role} onChange={e  => this.setState({role: e.target.value})}/>
-                    </div>
-                )
-            }
-            else{
-                return(
-                    <div>
-                        <div className="header-name">{this.state.name}</div>
-                        <div className="header-role">{this.state.role}</div>
-                    </div>
-                );
-            }
+        if(!this.props.preview && this.state.edit){
+            return(
+                <div className="header-name-role">
+                    <input value={this.state.name} onChange={e  => this.setState({name: e.target.value})}/>
+                    <input value={this.state.role} onChange={e  => this.setState({role: e.target.value})}/>
+                </div>
+            )
         }
         else{
             return(

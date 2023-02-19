@@ -12,20 +12,50 @@ class Skills extends Component{
         this.state = {
             skillInput: '',
             starsInput: 5,
-            skills: [
-                {
-                    id: uniqid(),
-                    skill:"HTML",
-                    stars: 5,
-                }, 
-                {
-                    id: uniqid(),
-                    skill: "CSS",
-                    stars: 4,
-                }
-            ],
+            skills: [],
             edit: false,
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.autofill !== this.props.autofill) {
+               if(this.props.autofill){
+                this.setState({
+                    skills: [
+                        {
+                        id: uniqid(),
+                        skill:"HTML",
+                        stars: 3,
+                    }, 
+                    {
+                        id: uniqid(),
+                        skill: "CSS",
+                        stars: 3,
+                    },
+                    {
+                        id: uniqid(),
+                        skill: "React.js",
+                        stars: 5,
+                    },
+                    {
+                        id: uniqid(),
+                        skill: "Javascript",
+                        stars: 5,
+                    },
+                    {
+                        id: uniqid(),
+                        skill: "Python",
+                        stars: 2,
+                    }
+                ]
+                })
+               }
+               else{
+                this.setState({
+                    skills: []
+                })
+               }
+        }
     }
 
     compareStars(a, b){
@@ -104,14 +134,10 @@ class Skills extends Component{
         }
     }
 
-    render(){
-        return(
-            <div className="sidebar">
-                <div className="sidebar-header">
-                    <h2>Skills</h2>
-                    {this.getIcon()}
-                </div>
-                {this.state.edit? 
+    getInputForm(){
+        if(!this.props.preview){
+            if(this.state.edit){
+                return(
                     <div className="skill-add-container">
                         <div className="skill-add">
                             <label>Skill Name:</label>
@@ -127,7 +153,19 @@ class Skills extends Component{
                             <button onClick={this.addSkill.bind(this)}>Add</button>
                         </div>
                     </div>
-                 : null}
+                )
+            }
+        }
+    }
+
+    render(){
+        return(
+            <div className="sidebar">
+                <div className="sidebar-header">
+                    <h2>Skills</h2>
+                    {this.getIcon()}
+                </div>
+                {this.getInputForm()}
                 <div>
                     {this.getSkills()}
                 </div>

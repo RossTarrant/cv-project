@@ -6,42 +6,57 @@ import { faPenToSquare, faSquareCheck, faTrash } from '@fortawesome/free-solid-s
 
 class WorkHistory extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             edit: false,
-            work: [
-                {
-                    id: uniqid(),
-                    startDate: '2022',
-                    endDate: 'Present',
-                    workplace: 'The West Bridgford School',
-                    role: 'Teacher of Computing',
-                    description: 'This is an example of a potential job description that may be placed in this exact location. There are lots of different details I could write about but I will ignore them and just leave it around about here...',
-                },
-                {
-                    id: uniqid(),
-                    startDate: '2022',
-                    endDate: 'Present',
-                    workplace: 'George Spencer Academy',
-                    role: 'Teacher of Computing',
-                    description: 'This is an example of a potential job description that may be placed in this exact location. There are lots of different details I could write about but I will ignore them and just leave it around about here...',
-                },
-                {
-                    id: uniqid(),
-                    startDate: '2022',
-                    endDate: 'Present',
-                    workplace: 'Tudor Grange Academy',
-                    role: 'Teacher (Maternity Cover)',
-                    description: 'This is an example of a potential job description that may be placed in this exact location. There are lots of different details I could write about but I will ignore them and just leave it around about here...',
-                }
-            ],
+            work: [],
             startDateInput: null,
             endDateInput: null,
             workplaceInput: null,
             roleInput: null,
             descriptionInput: null,
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.autofill !== this.props.autofill) {
+               if(this.props.autofill){
+                this.setState({
+                    work: [
+                        {
+                            id: uniqid(),
+                            startDate: '2022',
+                            endDate: 'Present',
+                            workplace: 'Blue Sky Industries',
+                            role: 'Senior Manager',
+                            description: 'This is the description of the role of Senior Manager which involes lots of managing and making sure that everything is working as it should be. If it is not working then it will be fixed in a very short amount of time...',
+                        },
+                        {
+                            id: uniqid(),
+                            startDate: '2021',
+                            endDate: '2022',
+                            workplace: 'Sunny Hill Technologies',
+                            role: 'Manager',
+                            description: 'This is the description of the role of Manager which involes lots of managing and making sure that everything is working as it should be. If it is not working then it will be fixed in a very short amount of time...',
+                        },
+                        {
+                            id: uniqid(),
+                            startDate: '2019',
+                            endDate: '2021',
+                            workplace: 'Green Meadow Inventions',
+                            role: 'Junior Manager',
+                            description: 'This is the description of the role of Junior Manager which involes lots of managing and making sure that everything is working as it should be. If it is not working then it will be fixed in a very short amount of time...',
+                        }
+                    ]
+                })
+               }
+               else{
+                this.setState({
+                    work: []
+                })
+               }
+        }
     }
 
     onClickEdit(){
@@ -79,7 +94,7 @@ class WorkHistory extends Component{
     }
 
     addWork(){
-        if(1===1){
+        if(this.checkFilledForm()){
             const newWork = {
                 id: uniqid(),
                 startDate: this.state.startDateInput,
@@ -100,6 +115,27 @@ class WorkHistory extends Component{
         }
     }
 
+    checkFilledForm(){
+        if(this.state.startDateInput===null){
+            return false
+        }
+        else if(this.state.endDateInput===null){
+            return false
+        }
+        else if(this.state.workplaceInput===null){
+            return false
+        }
+        else if(this.state.roleInput===null){
+            return false
+        }
+        else if(this.state.descriptionInput===null){
+            return false
+        }
+        else{
+            return true
+        }
+    }
+
     getIcon(){
         if(!this.props.preview){
             if(this.state.edit){
@@ -114,6 +150,29 @@ class WorkHistory extends Component{
         }
     }
 
+    getInputForm(){
+        if(!this.props.preview && this.state.edit){
+            return(
+                <div className="work-add-container">
+                    <div className="work-add">
+                        <h3>Add Work</h3>
+                        <label>Start Year:</label>
+                        <input onChange={e => this.setState({startDateInput: e.target.value})}/>
+                        <label>End Year:</label>
+                        <input onChange={e => this.setState({endDateInput: e.target.value})}/>
+                        <label>Place of Work:</label>
+                        <input onChange={e => this.setState({workplaceInput: e.target.value})}/>
+                        <label>Role:</label>
+                        <input onChange={e => this.setState({roleInput: e.target.value})}/>
+                        <label>Description (250 chars):</label>
+                        <textarea maxLength={250} onChange={e => this.setState({descriptionInput: e.target.value})}/>
+                        <button onClick={this.addWork.bind(this)}>Add</button>
+                    </div>
+                </div>
+            )
+        }
+    }
+
     render(){
         return(
             <div className="work-history">
@@ -121,24 +180,7 @@ class WorkHistory extends Component{
                 <h2>Work History</h2>
                     {this.getIcon()}
                 </div>
-                {this.state.edit? 
-                    <div className="work-add-container">
-                        <div className="work-add">
-                            <h3>Add Work</h3>
-                            <label>Start Year:</label>
-                            <input onChange={e => this.setState({startDateInput: e.target.value})}/>
-                            <label>End Year:</label>
-                            <input onChange={e => this.setState({endDateInput: e.target.value})}/>
-                            <label>Place of Work:</label>
-                            <input onChange={e => this.setState({workplaceInput: e.target.value})}/>
-                            <label>Role:</label>
-                            <input onChange={e => this.setState({roleInput: e.target.value})}/>
-                            <label>Description (250 chars):</label>
-                            <textarea maxLength={250} onChange={e => this.setState({descriptionInput: e.target.value})}/>
-                            <button onClick={this.addWork.bind(this)}>Add</button>
-                        </div>
-                    </div>
-                 : null}
+                {this.getInputForm()}
                  <div className="work-cards">
                     {this.getWork()}
                  </div>
