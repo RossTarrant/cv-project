@@ -40,11 +40,43 @@
     grid-template-columns: 1fr;
 }
 
+.work-workplace input{
+    width: 100%;
+}
 
 .work-details{
     display: grid;
     grid-template-columns: 3fr 1fr;
     align-items: center;
+    gap: 10px;
+}
+
+.work-details input, .work-details textarea{
+    font-family: Urbanist;
+}
+
+.work-details textarea{
+    font-size: 12px;
+    height: 70px;
+}
+
+.work-edit-dates{
+    display: flex;
+    gap: 10px;
+}
+
+.work-edit-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.work-edit-details input{
+    font-family: Urbanist;
+    text-align: center;
+    font-size: 18px;
 }
 
 .work-title{

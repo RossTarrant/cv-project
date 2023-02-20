@@ -31,6 +31,7 @@ class WorkHistory extends Component{
                             workplace: 'Blue Sky Industries',
                             role: 'Senior Manager',
                             description: 'This is the description of the role of Senior Manager which involes lots of managing and making sure that everything is working as it should be. If it is not working then it will be fixed in a very short amount of time...',
+                            edit: false,
                         },
                         {
                             id: uniqid(),
@@ -39,6 +40,7 @@ class WorkHistory extends Component{
                             workplace: 'Sunny Hill Technologies',
                             role: 'Manager',
                             description: 'This is the description of the role of Manager which involes lots of managing and making sure that everything is working as it should be. If it is not working then it will be fixed in a very short amount of time...',
+                            edit: false,
                         },
                         {
                             id: uniqid(),
@@ -47,6 +49,7 @@ class WorkHistory extends Component{
                             workplace: 'Green Meadow Inventions',
                             role: 'Junior Manager',
                             description: 'This is the description of the role of Junior Manager which involes lots of managing and making sure that everything is working as it should be. If it is not working then it will be fixed in a very short amount of time...',
+                            edit: false,
                         }
                     ]
                 })
@@ -72,10 +75,57 @@ class WorkHistory extends Component{
         });
     }
 
+    onClickEditWork(id){
+        let index = 0;
+        let updatedWork = [...this.state.work];
+        for(let i = 0; i < this.state.work.length; i++){
+            if(this.state.work[i].id===id){
+                index = i;
+            }
+            else if(this.state.work[i].edit===true){
+                let currentWork = {...updatedWork[i]};
+                currentWork.edit = false;
+                updatedWork[i] = currentWork;
+            }
+        }
+        let work = {...updatedWork[index]};
+        this.setState({
+            startDateInput: work.startDate,
+            endDateInput: work.endDate,
+            workplaceInput: work.workplace,
+            roleInput: work.role,
+            descriptionInput: work.description,
+        })
+        if(work.edit){
+            work.startDate = this.state.startDateInput;
+            work.endDate = this.state.endDateInput;
+            work.workplace = this.state.workplaceInput;
+            work.role = this.state.roleInput;
+            work.description = this.state.descriptionInput;
+        }
+        work.edit = !work.edit;
+        updatedWork[index] = work;
+        this.setState({work: updatedWork});
+    }
+
     getWork(){
-        // Possibly sort work based upon date
         const workHistory = this.state.work.map(work => 
             <div key={work.id} className={this.props.preview? "work-card-preview" : "work-card"}>
+                {work.edit? 
+                <div className="work-details">
+                    <input className={"work-title"} value={this.state.roleInput} onChange={e  => this.setState({roleInput: e.target.value})}/>
+                    <div className="work-subtitle">
+                        <div className="work-edit-details">
+                            <input className="work-workplace" value={this.state.workplaceInput} onChange={e  => this.setState({workplaceInput: e.target.value})}/>
+                            <div className="work-edit-dates">
+                                <input className="work-dates" value={this.state.startDateInput} onChange={e  => this.setState({startDateInput: e.target.value})}/>
+                                <input className="work-dates" value={this.state.endDateInput} onChange={e  => this.setState({endDateInput: e.target.value})}/>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea value={this.state.descriptionInput} onChange={e  => this.setState({descriptionInput: e.target.value})} className="work-title"/>
+                </div>
+                :
                 <div className="work-details">
                     <div className="work-title">{work.role}</div>
                     <div className="work-subtitle">
@@ -84,8 +134,10 @@ class WorkHistory extends Component{
                     </div>
                     <div className="work-description">{work.description}</div>
                 </div>
+                }
+                
                 <div className="work-edit">
-                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={faPenToSquare} size="lg" /> : null}
+                {!this.props.preview? <FontAwesomeIcon className="icon" icon={work.edit? faSquareCheck : faPenToSquare} size="lg" onClick={ () => this.onClickEditWork(work.id)}/> : null}
                     {!this.props.preview? <FontAwesomeIcon className="icon" icon={faTrash} size="lg" onClick={ () => this.onClickDeleteWork(work.id)}/> : null}
                 </div>
             </div>
@@ -102,6 +154,7 @@ class WorkHistory extends Component{
                 workplace: this.state.workplaceInput,
                 role: this.state.roleInput,
                 description: this.state.descriptionInput,
+                edit: false,
             }
             this.setState({
                 work: this.state.work.concat(newWork),
