@@ -1,9 +1,10 @@
 .header{
     font-family: Urbanist;
-    display: grid;
+    display: flex;
     align-items: center;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 24px;
+    justify-content: center;
+    grid-template-columns: 2fr 4fr 1fr;
+    gap: 64px;
     width: 100%;
     font-size: 24px;
     background-color: rgb(252, 207, 128);
@@ -36,10 +37,33 @@
     font-size: 32px;
 }
 
-.header-photo{
+.header-photo, .header-photo-edit{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.header-photo-edit{
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header-photo-edit .dot{
+    height: 120px;
+    width: 120px;
+}
+
+.header-input-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 5px;
+    font-size: 16px;
+}
+
+.header-input-form input{
+    font-size: 12px;
 }
 
 .dot {

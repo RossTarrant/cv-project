@@ -11,6 +11,8 @@ class Header extends Component{
         this.state = {
             name: 'Your name...',
             role: 'Enter your job role...',
+            imageUrl: '',
+            imageUrlInput: '',
             edit: false,
             preview: props.preview,
             autofill: props.autofill,
@@ -23,12 +25,14 @@ class Header extends Component{
                 this.setState({
                     name: 'Jonny Developer',
                     role: 'Junior Web Developer',
+                    imageUrl: 'https://www.lse.ac.uk/government/Assets/Images/People/Academic/dan-berliner-200x200.jpg',
                 })
                }
                else{
                 this.setState({
                     name: 'Your name...',
                     role: 'Enter your job role...',
+                    imageUrl: '',
                 })
                }
         }
@@ -42,6 +46,13 @@ class Header extends Component{
 
     onClickSubmit(){
         this.setState({
+            edit: (!this.state.edit),
+        });
+    }
+
+    onClickSubmitImage(){
+        this.setState({
+            imageUrl: this.state.imageUrlInput,
             edit: (!this.state.edit),
         });
     }
@@ -64,22 +75,40 @@ class Header extends Component{
             );
         }
     }
+
+    getHeaderEdit(){
+        if(!this.props.preview && this.state.edit){
+            return(
+                <div className="header-photo-edit">
+                    <img className="dot" alt="" src={this.state.imageUrl}></img>
+                    <div className="header-input-form">
+                        <label>Image Url: </label>
+                        <input value={this.state.imageUrlInput} onChange={e => this.setState({imageUrlInput: e.target.value})}/>
+                        <button onClick={this.onClickSubmitImage.bind(this)}>Submit</button>
+                    </div>
+                </div>
+            )
+        }
+        else{
+            return(
+                <div className="header-photo">
+                    <img className="dot" alt="" src={this.state.imageUrl}></img>
+                </div>
+            )
+        }
+    }
     
     render() {
         return this.state.edit ? 
         <div className="header">
-            <div className="header-photo">
-                <img className="dot" alt="error" src="https://www.lse.ac.uk/government/Assets/Images/People/Academic/dan-berliner-200x200.jpg"></img>
-            </div>
+            {this.getHeaderEdit()}
             {this.getHeaderNameRole()}
             {this.props.preview? null 
             : <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickSubmit.bind(this)}/>}
         </div> 
         : 
         <div className="header">
-            <div className="header-photo">
-                <img className="dot" alt="error" src="https://www.lse.ac.uk/government/Assets/Images/People/Academic/dan-berliner-200x200.jpg"></img>
-            </div>
+            {this.getHeaderEdit()}
             {this.getHeaderNameRole()}
             {this.props.preview? null 
             : <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>}
