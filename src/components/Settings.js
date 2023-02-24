@@ -1,43 +1,29 @@
 import { faL } from "@fortawesome/free-solid-svg-icons";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import '../styles/Header.css'
 
-class Settings extends Component{
+const Settings = props => {
 
-    constructor(props) {
-        super(props);
+    const [preview, setPreview] = useState(false);
+    const [autofill, setAutofill] = useState(false);
 
-        this.state = {
-            preview: false,
-            autofill: false,
-        }
-
+    const onPreviewClick = () => {
+        setPreview(!preview);
     }
 
-    onPreviewClick(){
-        this.setState({
-            preview: !this.state.preview,
-        })
-    }
-
-    onAutofillClick(){
-        this.setState({
-            autofill: !this.state.autofill,
-        })
+    const onAutofillClick = () => {
+        console.log(3);
+        setAutofill(!autofill);
     }
     
-    render() {
-        return(
-            <div className="settings">
-                <h1>CV Creator</h1>
-                <div className="settings-buttons">
-                    <button onClick={this.onAutofillClick.bind(this)}>{this.state.autofill? 'Reset Details' : 'Autofill Details'}</button>
-                    <button onClick={this.onPreviewClick.bind(this)}>{this.state.preview? 'Edit CV' : 'Preview CV'}</button>
-                </div>
+    return(
+        <div className="settings">
+            <h1>CV Creator</h1>
+            <div className="settings-buttons">
+                <button onClick={onAutofillClick}>{autofill? 'Reset Details' : 'Autofill Details'}</button>
+                <button onClick={onPreviewClick}>{preview? 'Edit CV' : 'Preview CV'}</button>
             </div>
-        )
-    }
-
+        </div>
+    )
 }
-
 export default Settings;
