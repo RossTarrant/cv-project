@@ -1,60 +1,46 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faEnvelope, faLocationDot, faLink, faPenToSquare, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
 
-class ContactDetails extends Component{
+export default function ContactDetails(props){
 
-    constructor(props){
-        super(props)
+    const [phone, setPhone] = useState('Enter your phone number...');
+    const [email, setEmail] = useState('Enter your email...');
+    const [address, setAddress] = useState('Enter your address...');
+    const [link, setLink] = useState('Add a link...');
+    const [edit, setEdit] = useState(false);
 
-        this.state = {
-            phone: 'Enter your phone number...',
-            email: 'Enter your email...',
-            address: 'Enter your address...',
-            link: 'Add a link...',
-            edit: false,
-        };
+    useEffect(() => {
+        if(props.autofill){
+            setPhone('+447123456789');
+            setEmail('web.developer@gmail.com');
+            setAddress('32 Developer Lane, London, UK');
+            setLink('Github.com/RossTarrant');
+           }
+           else{
+            setPhone('Enter your phone number...');
+            setEmail('Enter your email...');
+            setAddress('Enter your address...');
+            setLink('Add a link...');
+           }
+    }, [props.autofill])
+
+    const onClickEdit = () => {
+        setEdit(!edit);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.autofill !== this.props.autofill) {
-               if(this.props.autofill){
-                this.setState({
-                    phone: '+447123456789',
-                    email: 'web.developer@gmail.com',
-                    address: '32 Developer Lane, London, UK',
-                    link: 'Github.com/RossTarrant',
-                })
-               }
-               else{
-                this.setState({
-                    phone: 'Enter your phone number...',
-                    email: 'Enter your email...',
-                    address: 'Enter your address...',
-                    link: 'Add a link...',
-                })
-               }
-        }
-    }
-
-    onClickEdit(){
-        this.setState({
-        edit: (!this.state.edit),
-        });
-    }
-
-    getContactSection(){
-        if(!this.props.preview && this.state.edit){
+    const getContactSection = () => {
+        if(!props.preview && edit){
             return(
                 <div className="contact">
                     <FontAwesomeIcon className="icon" icon={faPhone} size="xl"/>
-                    <input value={this.state.phone} onChange={e  => this.setState({phone: e.target.value})}/>
+                    <input value={phone} onChange={e  => setPhone(e.target.value)}/>
                     <FontAwesomeIcon className="icon" icon={faEnvelope} size="xl"/>
-                    <input value={this.state.email} onChange={e  => this.setState({email: e.target.value})}/>
+                    <input value={email} onChange={e  => setEmail(e.target.value)}/>
                     <FontAwesomeIcon className="icon" icon={faLocationDot} size="2xl"/>
-                    <textarea value={this.state.address} onChange={e  => this.setState({address: e.target.value})}/>
+                    <textarea value={address} onChange={e  => setAddress(e.target.value)}/>
                     <FontAwesomeIcon className="icon" icon={faLink} size="xl"/>
-                    <input value={this.state.link} onChange={e  => this.setState({link: e.target.value})}/>
+                    <input value={link} onChange={e  => setLink(e.target.value)}/>
                 </div>
             )
         }
@@ -62,43 +48,38 @@ class ContactDetails extends Component{
             return(
                 <div className="contact">
                     <FontAwesomeIcon className="icon" icon={faPhone} size="xl"/>
-                    <p>{this.state.phone}</p>
+                    <p>{phone}</p>
                     <FontAwesomeIcon className="icon" icon={faEnvelope} size="xl"/>
-                    <p>{this.state.email}</p>
+                    <p>{email}</p>
                     <FontAwesomeIcon className="icon" icon={faLocationDot} size="2xl"/>
-                    <p>{this.state.address}</p>
+                    <p>{address}</p>
                     <FontAwesomeIcon className="icon" icon={faLink} size="xl"/>
-                    <p>{this.state.link}</p>
+                    <p>{link}</p>
                 </div>
             )
         }
     }
 
-    render(){
-        return(
-            !this.state.edit ? 
-            <div className="sidebar">
-                <div className="sidebar-header">
-                    <h2>Contact Details</h2>
-                    {!this.props.preview? 
-                    <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
-                    : null}
-                </div>
-                {this.getContactSection()}
+    return(
+        !edit ? 
+        <div className="sidebar">
+            <div className="sidebar-header">
+                <h2>Contact Details</h2>
+                {!props.preview? 
+                <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={onClickEdit}/>
+                : null}
             </div>
-            :
-            <div className="sidebar">
-                <div className="sidebar-header">
-                    <h2>Contact Details</h2>
-                    {!this.props.preview? 
-                    <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
-                    : null}
-                </div>
-                {this.getContactSection()}   
+            {getContactSection()}
+        </div>
+        :
+        <div className="sidebar">
+            <div className="sidebar-header">
+                <h2>Contact Details</h2>
+                {!props.preview? 
+                <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={onClickEdit}/>
+                : null}
             </div>
-        )
-    }
-
+            {getContactSection()}   
+        </div>
+    )
 }
-
-export default ContactDetails;

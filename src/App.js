@@ -1,58 +1,37 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import CVMain from "./components/CVMain";
 import './styles/App.css';
 
-class App extends Component {
+export default function App(){
 
-  constructor(props) {
-    super(props);
+  const [preview, setPreview] = useState(false);
+  const [autofill, setAutofill] = useState(false);
 
-    this.state = {
-        preview: false,
-        autofill: false,
-    }
+  const onPreviewClick = () => {
+    setPreview(!preview);
   }
 
-  onPreviewClick(){
-      this.setState({
-          preview: !this.state.preview,
-      })
+  const onAutofillClick = () => {
+      setAutofill(!autofill);
   }
 
-  onAutofillClick(){
-      this.setState({
-          autofill: !this.state.autofill,
-      })
-  }
-
-  onClickEdit(){
-    this.setState({
-    edit: (!this.state.edit),
-    });
-  }
-
-  render() {
-    return (
-      <div className="content">
-        <div className="settings">
-          <h1>CV Builder</h1>
-          <div className="settings-buttons">
-              <button onClick={this.onAutofillClick.bind(this)}>{this.state.autofill? 'Reset Details' : 'Autofill Details'}</button>
-              <button onClick={this.onPreviewClick.bind(this)}>{this.state.preview? 'Edit CV' : 'Preview CV'}</button>
-          </div>
+  return (
+    <div className="content">
+      <div className="settings">
+        <h1>CV Builder</h1>
+        <div className="settings-buttons">
+            <button onClick={onAutofillClick}>{autofill? 'Reset Details' : 'Autofill Details'}</button>
+            <button onClick={onPreviewClick}>{preview? 'Edit CV' : 'Preview CV'}</button>
         </div>
-        <div className="cv">
-          <Header className="header" autofill={this.state.autofill} preview={this.state.preview}/>
-          <Sidebar className="sidebar" autofill={this.state.autofill} preview={this.state.preview}/>
-          <CVMain  autofill={this.state.autofill} preview={this.state.preview}/>
-        </div>
-        
       </div>
-      );
-  }
-
+      <div className="cv">
+        <Header className="header" autofill={autofill} preview={preview}/>
+        <Sidebar className="sidebar" autofill={autofill} preview={preview}/>
+        <CVMain  autofill={autofill} preview={preview}/>
+      </div>
+      
+    </div>
+    );
 }
-
-export default App;
