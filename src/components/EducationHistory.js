@@ -1,83 +1,72 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import '../styles/Education.css'
 import uniqid from "uniqid";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faSquareCheck, faTrash} from '@fortawesome/free-solid-svg-icons';
 
-class EducationHistory extends Component{
+export default function EducationHistory(props){
 
-    constructor(props){
-        super(props);
-        this.state = {
-            edit: false,
-            education: [],
-            startDateInput: null,
-            endDateInput: null,
-            schoolInput: null,
-            courseInput: null,
-        };
-    }
+    const [edit, setEdit] = useState(false);
+    const [education, setEducation] = useState([]);
+    const [startDateInput, setStartDateInput] = useState(null);
+    const [endDateInput, setEndDateInput] = useState(null);
+    const [schoolInput, setSchoolInput] = useState(null);
+    const [courseInput, setCourseInput] = useState(null);
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.autofill !== this.props.autofill) {
-               if(this.props.autofill){
-                this.setState({
-                    education: [
-                        {
-                            id: uniqid(),
-                            startDate: '2022',
-                            endDate: 'Present',
-                            school: 'The Odin Project',
-                            course: 'Web Development',
-                            edit: false,
-                        },
-                        {
-                            id: uniqid(),
-                            startDate: '2016',
-                            endDate: '2019',
-                            school: 'University of Golden Sunset',
-                            course: 'Computer Science (BSc)',
-                            edit: false,
-                        },
-                        {
-                            id: uniqid(),
-                            startDate: '2014',
-                            endDate: '2016',
-                            school: 'Green Grass Sixth Form',
-                            course: 'English, Maths, Science (A-Levels)',
-                            edit: false,
-                        },
-                        {
-                            id: uniqid(),
-                            startDate: '2012',
-                            endDate: '2014',
-                            school: 'Blue Sky Secondary School',
-                            course: 'English, Maths, Science, French (GCSEs)',
-                            edit: false,
-                        }
-                    ]
-                })
-               }
-               else{
-                this.setState({
-                    education: []
-                })
-               }
-        }
-    }
+    useEffect(() => {
+        if(props.autofill){
+            setEducation([
+                {
+                    id: uniqid(),
+                    startDate: '2022',
+                    endDate: 'Present',
+                    school: 'The Odin Project',
+                    course: 'Web Development',
+                    edit: false,
+                },
+                {
+                    id: uniqid(),
+                    startDate: '2016',
+                    endDate: '2019',
+                    school: 'University of Golden Sunset',
+                    course: 'Computer Science (BSc)',
+                    edit: false,
+                },
+                {
+                    id: uniqid(),
+                    startDate: '2014',
+                    endDate: '2016',
+                    school: 'Green Grass Sixth Form',
+                    course: 'English, Maths, Science (A-Levels)',
+                    edit: false,
+                },
+                {
+                    id: uniqid(),
+                    startDate: '2012',
+                    endDate: '2014',
+                    school: 'Blue Sky Secondary School',
+                    course: 'English, Maths, Science, French (GCSEs)',
+                    edit: false,
+                }
+            ])
+           }
+           else{
+            setEducation([])
+           }
+    },[props.autofill])
 
-    getEducation(){
+    const getEducation = () => {
         // Possibly sort education based upon date
-        const educationHistory = this.state.education.map(edu => 
-            <div key={edu.id} className={this.props.preview? "edu-card-preview" : "edu-card"}>
+        const educationHistory = education.map(edu => 
+            <div key={edu.id} className={props.preview? "edu-card-preview" : "edu-card"}>
                 {edu.edit? 
                 <div className="edu-details">
-                    <input value={this.state.schoolInput} onChange={e  => this.setState({schoolInput: e.target.value})} className="edu-school"/>
+                    <input value={schoolInput} onChange={e  => setSchoolInput(e.target.value)} className="edu-school"/>
                     <div className="edu-edit-details">
-                        <input value={this.state.startDateInput} onChange={e  => this.setState({startDateInput: e.target.value})} className="edu-course"/>
-                        <input value={this.state.endDateInput} onChange={e  => this.setState({endDateInput: e.target.value})} className="edu-course"/>
+                        <input value={startDateInput} onChange={e  => setStartDateInput(e.target.value)} className="edu-course"/>
+                        <input value={endDateInput} onChange={e  => setEndDateInput(e.target.value)} className="edu-course"/>
                     </div>
-                    <input value={this.state.courseInput} onChange={e  => this.setState({courseInput: e.target.value})} className="edu-course"/>
+                    <input value={courseInput} onChange={e  => setCourseInput(e.target.value)} className="edu-course"/>
                 </div>
                 :
                 <div className="edu-details">
@@ -88,25 +77,25 @@ class EducationHistory extends Component{
                 }
                 
                 <div className="edu-edit">
-                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={edu.edit? faSquareCheck : faPenToSquare} size="lg" onClick={ () => this.onClickEditEducation(edu.id)}/> : null}
-                    {!this.props.preview? <FontAwesomeIcon className="icon" icon={faTrash} size="lg" onClick={ () => this.onClickDeleteEducation(edu.id)}/> : null}
+                    {!props.preview? <FontAwesomeIcon className="icon" icon={edu.edit? faSquareCheck : faPenToSquare} size="lg" onClick={() => {onClickEditEducation(edu.id)}}/> : null}
+                    {!props.preview? <FontAwesomeIcon className="icon" icon={faTrash} size="lg" onClick={ () => {onClickDeleteEducation(edu.id)}}/> : null}
                 </div>
             </div>
             )
         return educationHistory;
     }
 
-    checkFilledForm(){
-        if(this.state.startDateInput===null){
+    const checkFilledForm = () => {
+        if(startDateInput===null){
             return false
         }
-        else if(this.state.endDateInput===null){
+        else if(endDateInput===null){
             return false
         }
-        else if(this.state.schoolInput===null){
+        else if(schoolInput===null){
             return false
         }
-        else if(this.state.courseInput===null){
+        else if(courseInput===null){
             return false
         }
         else{
@@ -114,78 +103,69 @@ class EducationHistory extends Component{
         }
     }
 
-    addEducation(){
-        if(this.checkFilledForm()){
+    const addEducation = () => {
+        if(checkFilledForm()){
             const newEducation = {
                 id: uniqid(),
-                startDate: this.state.startDateInput,
-                endDate: this.state.endDateInput,
-                school: this.state.schoolInput,
-                course: this.state.courseInput,
+                startDate: startDateInput,
+                endDate: endDateInput,
+                school: schoolInput,
+                course: courseInput,
                 edit: false,
             }
-            this.setState({
-                education: this.state.education.concat(newEducation),
-                edit: !(this.state.edit),
-                startDateInput: null,
-                endDateInput: null,
-                schoolInput: null,
-                courseInput: null,
-            })
+            setEducation(education.concat(newEducation));
+            setEdit(!edit);
+            setStartDateInput(null);
+            setEndDateInput(null);
+            setSchoolInput(null);
+            setCourseInput(null);
         }
     }
 
-    onClickEdit(){
-        this.setState({
-        edit: (!this.state.edit),
-        });
+    const onClickEdit = () => { setEdit(!edit); }
+
+    const onClickDeleteEducation = id => {
+        const filteredSkills = education.filter( edu => edu.id !== id);
+        setEducation(filteredSkills);
     }
 
-    onClickDeleteEducation(id){
-        const filteredSkills = this.state.education.filter( edu => edu.id !== id);
-        this.setState({
-            education : filteredSkills,
-        });
-    }
-
-    onClickEditEducation(id){
+    const onClickEditEducation = id =>{
         let index = 0;
-        let updatedEducation = [...this.state.education];
-        for(let i = 0; i < this.state.education.length; i++){
-            if(this.state.education[i].id===id){
+        let updatedEducation = [...education];
+        for(let i = 0; i < education.length; i++){
+            if(education[i].id===id){
                 index = i;
             }
-            else if(this.state.education[i].edit===true){
+            else if(education[i].edit===true){
                 let currentEducation = {...updatedEducation[i]};
                 currentEducation.edit = false;
                 updatedEducation[i] = currentEducation;
             }
         }
-        let education = {...updatedEducation[index]};
-        this.setState({
-            startDateInput: education.startDate,
-            endDateInput: education.endDate,
-            schoolInput: education.school,
-            courseInput: education.course,
-        })
+        let newEducation = {...updatedEducation[index]};
+        setStartDateInput(newEducation.startDate);
+        setEndDateInput(newEducation.endDate);
+        setSchoolInput(newEducation.school);
+        setCourseInput(newEducation.course);
+
         if(education.edit){
-            education.startDate = this.state.startDateInput;
-            education.endDate = this.state.endDateInput;
-            education.school = this.state.schoolInput;
-            education.course = this.state.courseInput;
+            newEducation.startDate = startDateInput;
+            newEducation.endDate = endDateInput;
+            newEducation.school = schoolInput;
+            newEducation.course = courseInput;
         }
-        education.edit = !education.edit;
-        updatedEducation[index] = education;
-        this.setState({education: updatedEducation});
+        newEducation.edit = !newEducation.edit;
+        updatedEducation[index] = newEducation;
+        setEducation(updatedEducation);
     }
 
-    getIcon(){
-        if(!this.props.preview){
-            if(this.state.edit){
-                return <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickEdit.bind(this)}/>
+    const getIcon = () => {
+        if(!props.preview){
+            if(edit){
+                return <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={onClickEdit}/>
             }
             else{
-                return <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>
+                return <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={onClickEdit}/>
             }
         }
         else{
@@ -193,43 +173,38 @@ class EducationHistory extends Component{
         }
     }
 
-    getInputForm(){
-        if(!this.props.preview){
-            if(this.state.edit){
+    const getInputForm = () => {
+        if(!props.preview){
+            if(edit){
                 return(
                     <div className="edu-add-container">
                         <div className="edu-add">
                             <h3>Add Education</h3>
                             <label>Start Year:</label>
-                            <input onChange={e => this.setState({startDateInput: e.target.value})}/>
+                            <input onChange={e => setStartDateInput(e.target.value)}/>
                             <label>End Year:</label>
-                            <input onChange={e => this.setState({endDateInput: e.target.value})}/>
+                            <input onChange={e => setEndDateInput(e.target.value)}/>
                             <label>School Name:</label>
-                            <input onChange={e => this.setState({schoolInput: e.target.value})}/>
+                            <input onChange={e => setSchoolInput(e.target.value)}/>
                             <label>Course Title:</label>
-                            <input onChange={e => this.setState({courseInput: e.target.value})}/>
-                            <button onClick={this.addEducation.bind(this)}>Add</button>
+                            <input onChange={e => setCourseInput(e.target.value)}/>
+                            <button onClick={addEducation}>Add</button>
                         </div>
                     </div>
                 )
             }
         }
     }
-
-    render(){
-        return(
-            <div className="edu-history">
-                <div className="edu-header">
-                    <h2>Education History</h2>
-                    {this.getIcon()}
-                </div>
-                {this.getInputForm()}
-                 <div className="edu-cards">
-                    {this.getEducation()}
-                 </div>
+    return(
+        <div className="edu-history">
+            <div className="edu-header">
+                <h2>Education History</h2>
+                {getIcon()}
             </div>
-        )
-    }
+            {getInputForm()}
+                <div className="edu-cards">
+                {getEducation()}
+                </div>
+        </div>
+    )
 }
-
-export default EducationHistory;
