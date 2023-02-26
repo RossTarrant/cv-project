@@ -1,90 +1,70 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import '../styles/Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
 
-class Header extends Component{
+export default function Header(props){
 
-    constructor(props) {
-        super(props);
+    const [name, setName] = useState('Your name...');
+    const [role, setRole] = useState('Enter your job role...');
+    const [imageUrl, setImageUrl] = useState('');
+    const [imageUrlInput, setImageUrlInput] = useState('');
+    const [edit, setEdit] = useState(false);
 
-        this.state = {
-            name: 'Your name...',
-            role: 'Enter your job role...',
-            imageUrl: '',
-            imageUrlInput: '',
-            edit: false,
-            preview: props.preview,
-            autofill: props.autofill,
-        };
+    useEffect( () => {
+        if(props.autofill){
+            setName('Jonny Developer');
+            setRole('Junior Web Developer');
+            setImageUrl('https://www.lse.ac.uk/government/Assets/Images/People/Academic/dan-berliner-200x200.jpg');
+           }
+           else{
+            setName('Your name...');
+            setRole('Enter your job role...');
+            setImageUrl('');
+           }
+    }, [props.autofill])
+
+    const onClickEdit = () => {
+        setEdit(!edit);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.autofill !== this.props.autofill) {
-               if(this.props.autofill){
-                this.setState({
-                    name: 'Jonny Developer',
-                    role: 'Junior Web Developer',
-                    imageUrl: 'https://www.lse.ac.uk/government/Assets/Images/People/Academic/dan-berliner-200x200.jpg',
-                })
-               }
-               else{
-                this.setState({
-                    name: 'Your name...',
-                    role: 'Enter your job role...',
-                    imageUrl: '',
-                })
-               }
-        }
+    const onClickSubmit = () => {
+        setEdit(!edit);
     }
 
-    onClickEdit(){
-        this.setState({
-            edit: (!this.state.edit),
-        });
+    const onClickSubmitImage = () => {
+        setImageUrl(imageUrlInput);
+        setEdit(!edit);
     }
 
-    onClickSubmit(){
-        this.setState({
-            edit: (!this.state.edit),
-        });
-    }
-
-    onClickSubmitImage(){
-        this.setState({
-            imageUrl: this.state.imageUrlInput,
-            edit: (!this.state.edit),
-        });
-    }
-
-    getHeaderNameRole(){
-        if(!this.props.preview && this.state.edit){
+    const getHeaderNameRole = () => {
+        if(!props.preview && edit){
             return(
                 <div className="header-name-role">
-                    <input value={this.state.name} onChange={e  => this.setState({name: e.target.value})}/>
-                    <input value={this.state.role} onChange={e  => this.setState({role: e.target.value})}/>
+                    <input value={name} onChange={e  => setName(e.target.value)}/>
+                    <input value={role} onChange={e  => setRole(e.target.value)}/>
                 </div>
             )
         }
         else{
             return(
                 <div>
-                    <div className="header-name">{this.state.name}</div>
-                    <div className="header-role">{this.state.role}</div>
+                    <div className="header-name">{name}</div>
+                    <div className="header-role">{role}</div>
                 </div>
             );
         }
     }
 
-    getHeaderEdit(){
-        if(!this.props.preview && this.state.edit){
+    const getHeaderEdit = () => {
+        if(!props.preview && edit){
             return(
                 <div className="header-photo-edit">
-                    <img className="dot" alt="" src={this.state.imageUrl}></img>
+                    <img className="dot" alt="" src={imageUrl}></img>
                     <div className="header-input-form">
                         <label>Image Url: </label>
-                        <input value={this.state.imageUrlInput} onChange={e => this.setState({imageUrlInput: e.target.value})}/>
-                        <button onClick={this.onClickSubmitImage.bind(this)}>Submit</button>
+                        <input value={imageUrlInput} onChange={e => setImageUrlInput(e.target.value)}/>
+                        <button onClick={onClickSubmitImage}>Submit</button>
                     </div>
                 </div>
             )
@@ -92,29 +72,24 @@ class Header extends Component{
         else{
             return(
                 <div className="header-photo">
-                    <img className="dot" alt="" src={this.state.imageUrl}></img>
+                    <img className="dot" alt="" src={imageUrl}></img>
                 </div>
             )
         }
     }
-    
-    render() {
-        return this.state.edit ? 
-        <div className="header">
-            {this.getHeaderEdit()}
-            {this.getHeaderNameRole()}
-            {this.props.preview? null 
-            : <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={this.onClickSubmit.bind(this)}/>}
-        </div> 
-        : 
-        <div className="header">
-            {this.getHeaderEdit()}
-            {this.getHeaderNameRole()}
-            {this.props.preview? null 
-            : <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={this.onClickEdit.bind(this)}/>}
-        </div>;
-    }
 
+    return edit ? 
+    <div className="header">
+        {getHeaderEdit()}
+        {getHeaderNameRole()}
+        {props.preview? null 
+        : <FontAwesomeIcon className="icon" icon={faSquareCheck} size="xl" onClick={onClickSubmit}/>}
+    </div> 
+    : 
+    <div className="header">
+        {getHeaderEdit()}
+        {getHeaderNameRole()}
+        {props.preview? null 
+        : <FontAwesomeIcon className="icon" icon={faPenToSquare} size="xl" onClick={onClickEdit}/>}
+    </div>;
 }
-
-export default Header;
